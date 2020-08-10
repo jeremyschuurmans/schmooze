@@ -1,14 +1,20 @@
 language: ruby
 services:
-  - postgresql
+- postgresql
+deploy:
+  provider: heroku
+  app:
+    master: schmooze-staging
+  on:
+    repo: Jer-Sch/schmooze
+  skip_cleanup: 'true'
+  api_key:
+    secure: lkHSvI0Xbvme/nliS8GnxL4CtFdy5hkvYD51+7MYr4ofvNG3Hjx1X/HDhw1EhCfVBeo9gKeofenlbgCYKoHZYA1Et7DQq3GXoWxa5FiA80pXOcE5pML22spOSaQ6Y0ZOYJ8e5J1iEgESyDC3h2ZH88w8BNTaNCSDxchy5EMHuRnDPWXcCxSOO636IAXVqlepyNzegtiyYvNCLsygsSQtx4Kyc8XlrLZ3gt5mtBt195ErEEGhlkyzcQiPZ3p24ijU2IKJtnsrQaqJBKwCN57nSV6PIA7b4zT4p72KNRorPRuyV4C0W4mjeeYAFVVaPM+fal4wqaRcE7ues9NqY2D8tPTWg1Hq8X8xG9zqXt5ZNOxmkur8XpqH7mi2CCV2qf9eE7zUWiSUP/ry0ViZOk/Khc2He3QooDXoKqocPSVRhFueY4YoF/NdPiWA0cpqG1AMKzUprloiFQuGrXQiaVm6CyZx1j4ogg9lboqCp2JPvGHwudHfvpnUGaYSBr2m1G4cPhc0W/xmrRcbBfZHw0SlfWbIkJpvxAPZWyUbBq2XLsDnVzB+KgkWxKYRiqFFMoiN/e+Nr9w0E39N7/wgEjChfWHkUj6SuHneVj7JBVgGKgjckdCxZBEi29kf+62oADmi+LMZlupC+P4XPWUQfyJbXZqdNYpHbDnGlawtBJW1ZNo=
 before_script:
-  - RAILS_ENV=test bundle exec rake db:create
-script:
-  # - bundle exec rails webpacker:compile
-  # - bundle exec rails spec
+- RAILS_ENV=test bundle exec rake db:create
 install:
-  - bundle install
-  - nvm install node
-  - node -v
-  - npm i -g yarn
-  - yarn
+- bundle install
+- nvm install node
+- node -v
+- npm i -g yarn
+- yarn
