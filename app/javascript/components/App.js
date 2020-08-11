@@ -1,6 +1,7 @@
 import React from "react"
 import Navigation from "./Navigation"
 import Messages from "./Messages"
+import Topics from "./Topics"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 class App extends React.Component {
@@ -24,8 +25,10 @@ class App extends React.Component {
                 </div>
               </div>
             </div>
-            {/* <Channels />
-            <NewChannel /> */}
+            {/* <Channels /> */}
+            <Router>
+              <Topics />
+            </Router>
           </div>
           <div className="relative flex flex-col flex-1">
             <Navigation />
