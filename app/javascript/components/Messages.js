@@ -1,13 +1,21 @@
 import React from "react"
+import consumer from "../channels/consumer"
 
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {messages: []}
+    this.state = {messages: []};
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this)
+    // this.loadMessages = this.loadMessages.bind(this)
+    // pass in channel name as prop
+  }
+  
+  componentDidMount() {
+    this.fetchMessages();
+    this.setSubscription();
   }
 
-  loadMessages = () => {
+  fetchMessages = () => {
     const url = "/messages"
     fetch(url)
       .then(response => {
@@ -17,7 +25,29 @@ class Messages extends React.Component {
           throw new Error("Something went wrong with the network response.");
         }
       })
-      .then(response => this.setState({messages: response}));
+      .then(response => this.setState(() => { return {messages: response}}));
+  }
+
+  setSubscription = () => {
+    consumer.subscriptions.create({ channel: "MessageChannel" }, {
+      received(data) {
+        this.appendLine(data)
+      },
+    
+      appendLine(data) {
+        const html = this.createLine(data)
+        const element = document.querySelector("[chat-data]")
+        element.insertAdjacentHTML("beforeend", html)
+      },
+    
+      createLine(data) {
+        return(
+          <article class="chat-line">
+            <span class="body">${data["content"]}</span>
+          </article>
+        )
+      }
+    })
   }
 
   handleMessageSubmit = (content) => {
@@ -43,16 +73,13 @@ class Messages extends React.Component {
       .then(response => this.setState({messages: response}))
   }
 
-  componenentDidMount() {
-    this.loadMessages();
-  }
-
   render () {
+    // console.log(this.props)
     return (
-      <React.Fragment>
-        <MessageList messages={this.state.messages}/>
-        <MessageForm onMessageSubmit={this.handleMessageSubmit}/>
-      </React.Fragment>
+      <>
+        <MessageList messages={this.state.messages} />
+        <MessageForm onMessageSubmit={this.handleMessageSubmit} />
+      </>
     );
   }
 }
@@ -69,7 +96,7 @@ class MessageList extends React.Component {
       )
     });
     return(
-      <ul>{messages}</ul>
+      <ul className="chat-data">{messages}</ul>
     );
   }
 }

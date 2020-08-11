@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.save
+    ActionCable.server.broadcast("MessageChannel", content: @message.content)
     load_messages
   end
 
