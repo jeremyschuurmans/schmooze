@@ -1,4 +1,5 @@
 import React from "react"
+import Messages from "./Messages"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 class App extends React.Component {
@@ -6,7 +7,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Route exact path="/" render={()=> ("You're home!!")} />
+          <Route exact path="/" component={Messages} />
         </Router>
       </>
     );
