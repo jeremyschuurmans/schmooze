@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.save
-    ActionCable.server.broadcast("MessageChannel", content: @message.content)
+    ActionCable.server.broadcast("message_channel", content: @message.content)
+    # render json: Array.wrap(@message)
     load_messages
   end
 
