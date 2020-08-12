@@ -23,7 +23,7 @@ class Messages extends React.Component {
         console.log("connected!")
       },
       disconnected: () => { },
-      received: data => { this.setState({messages: [...this.state.messages, data]}) }
+      received: data => { this.setState({ messages: [...this.state.messages, data] }) }
     })
   }
 
@@ -60,11 +60,9 @@ class Messages extends React.Component {
           throw new Error(response.status);
         }
       })
-      .then(response => this.setState({ messages: response }))
   }
 
   render() {
-    // console.log(this.props)
     return (
       <>
         <MessageList messages={this.state.messages} />
@@ -82,21 +80,19 @@ class MessageList extends React.Component {
   render() {
     const messages = this.props.messages.map((message) => {
       return (
-        <div className={message.id % 2 === 0 ? 'self-start w-3/4 my-2' : 'self-end w-3/4 my-2'} key={message.id}>
+        <div className="self-center w-3/4 my-2" key={message.id}>
           <div className="p-4 text-sm bg-white rounded-t-lg rounded-r-lg shadow">
             {message.content}
           </div>
         </div>
-        // <li key={message.id}>{message.content}</li>
       )
     });
     return (
       <div className="self-center flex-1 w-full max-w-xl">
-        <div className="chat-data relative flex flex-col px-3 py-1 m-auto">
+        <div className="relative flex flex-col px-3 py-1 m-auto">
           {messages}
         </div>
       </div>
-      // <div className="chat-data">{messages}</div>
     );
   }
 }
@@ -126,14 +122,6 @@ class MessageForm extends React.Component {
   }
   render() {
     return (
-      // <div>
-      //   <form className="message" onSubmit={this.handleSubmit}>
-      //     <input type="text" name="content" placeholder="Chat here ..."
-      //       value={this.state.content} onChange={this.handleContentChange} />
-      //     <input type="submit" value="Send" />
-      //   </form>
-      // </div>
-
       <form
         className="relative flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400"
         onSubmit={this.handleSubmit}>
